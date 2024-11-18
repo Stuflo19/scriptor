@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "run": "expo start",
+    "start": "yarn start",
+    "ios": "yarn ios",
+    "android": "yarn android"
+  }
+}
