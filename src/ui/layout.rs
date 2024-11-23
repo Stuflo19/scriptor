@@ -6,6 +6,6 @@ pub fn generate_layout(frame_area: Rect) -> [Rect; 3] {
         Constraint::Length(3),
         Constraint::Min(1),
     ]);
-    
+
     vertical.areas(frame_area)
 }

@@ -13,13 +13,13 @@ pub fn read_scripts(filename: &str) -> std::io::Result<HashMap<String, String>> 
     let data = fs::read_to_string(current_dir.join(filename));
 
     let result = data.unwrap_or_else(|_d| {
-        return r#"
+        r#"
         { 
             "scripts": {
                 "file_not_found": "package.json could not be found in this directory"
             }
         }"#
-        .to_string();
+        .to_string()
     });
 
     let json_result: Result<ScriptList> = serde_json::from_str(&result);
