@@ -93,3 +93,112 @@ impl ScriptInput {
             .block(Block::bordered().title("Search"))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ui::layout::generate_layout;
+    use insta::assert_snapshot;
+    use ratatui::{backend::TestBackend, Terminal};
+
+    #[test]
+    fn it_new_creates_default_state() {
+        let script_input = ScriptInput::new();
+
+        assert_eq!(script_input.input, "");
+        assert_eq!(script_input.character_index, 0);
+    }
+
+    #[test]
+    fn it_move_left_correctly_updates_state() {
+        let mut script_input = ScriptInput::new();
+        script_input.input = String::from("abc");
+        script_input.character_index = 3;
+
+        script_input.move_cursor_left();
+
+        assert_eq!(script_input.character_index, 2);
+    }
+
+    #[test]
+    fn it_move_left_correctly_handles_0_character_index() {
+        let mut script_input = ScriptInput::new();
+
+        script_input.move_cursor_left();
+
+        assert_eq!(script_input.character_index, 0);
+    }
+
+    #[test]
+    fn it_move_right_correctly_updates_state() {
+        let mut script_input = ScriptInput::new();
+        script_input.input = String::from("abc");
+        script_input.character_index = 2;
+
+        script_input.move_cursor_right();
+
+        assert_eq!(script_input.character_index, 3);
+    }
+
+    #[test]
+    fn it_move_right_correctly_handles_going_past_input_len() {
+        let mut script_input = ScriptInput::new();
+        script_input.input = String::from("abc");
+        script_input.character_index = 3;
+
+        script_input.move_cursor_right();
+
+        assert_eq!(script_input.character_index, 3);
+    }
+
+    #[test]
+    fn it_enter_char_correctly_updates_state() {
+        let mut script_input = ScriptInput::new();
+
+        script_input.enter_char('a');
+
+        assert_eq!(script_input.input, "a");
+        assert_eq!(script_input.character_index, 1);
+    }
+
+    #[test]
+    fn it_delete_char_correctly_updates_state() {
+        let mut script_input = ScriptInput::new();
+        script_input.input = String::from("abc");
+        script_input.character_index = 3;
+
+        script_input.delete_char();
+
+        assert_eq!(script_input.input, "ab");
+        assert_eq!(script_input.character_index, 2);
+    }
+
+    #[test]
+    fn it_delete_char_handles_empty_input() {
+        let mut script_input = ScriptInput::new();
+
+        script_input.delete_char();
+
+        assert_eq!(script_input.input, "");
+        assert_eq!(script_input.character_index, 0);
+    }
+
+    #[test]
+    fn it_generate_input_renders_correctly() {
+        let script_input = ScriptInput::new();
+        let input = script_input.generate_input();
+
+        let mut terminal = Terminal::new(TestBackend::new(80, 20)).unwrap();
+
+        terminal
+            .draw(|frame| {
+                let [_, input_area, _] = generate_layout(frame.area());
+
+                frame.set_cursor_position(script_input.place_cursor(input_area));
+                frame.render_widget(&input, input_area)
+            })
+            .unwrap();
+
+        assert_snapshot!(terminal.backend());
+    }
+}

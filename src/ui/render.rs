@@ -76,3 +76,25 @@ impl Render {
         );
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use insta::assert_snapshot;
+    use ratatui::backend::TestBackend;
+    use ratatui::Terminal;
+
+    #[test]
+    fn it_draw_snapshot() {
+        let render = Render::new();
+        let mut terminal = Terminal::new(TestBackend::new(80, 20)).unwrap();
+
+        terminal
+            .draw(|frame| {
+                render.draw(frame);
+            })
+            .unwrap();
+
+        assert_snapshot!(terminal.backend());
+    }
+}

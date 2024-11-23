@@ -1,0 +1,25 @@
+---
+source: src/ui/table.rs
+expression: terminal.backend()
+snapshot_kind: text
+---
+"                                                                                "
+"                                                                                "
+"                                                                                "
+"                                                                                "
+"┌Scripts───────────────────────────────────────────────────────────────────────┐"
+"│Script                    Command                                             │"
+"│android                   yarn android                                        │"
+"│ios                       yarn ios                                            │"
+"│run                       expo start                                          │"
+"│start                     yarn start                                          │"
+"│test                      jest                                                │"
+"│                                                                              │"
+"│                                                                              │"
+"│                                                                              │"
+"│                                                                              │"
+"│                                                                              │"
+"│                                                                              │"
+"│                                                                              │"
+"│                                                                              │"
+"└──────────────────────────────────────────────────────────────────────────────┘"
