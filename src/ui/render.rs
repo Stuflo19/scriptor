@@ -28,7 +28,7 @@ impl Render {
             if let Event::Key(key) = event::read()? {
                 match key.code {
                     KeyCode::Enter => {
-                        if self.script_table.scripts.scripts.len() > 0 {
+                        if !self.script_table.scripts.scripts.is_empty() {
                             let script_name = self.script_table.get_script_name();
                             return Ok(script_name);
                         }
@@ -42,7 +42,7 @@ impl Render {
                         let curr_input = self.script_input.input.clone();
 
                         self.script_input.delete_char();
-                        if curr_input.len() > 0 {
+                        if !curr_input.is_empty() {
                             self.script_table
                                 .filter_results(self.script_input.input.clone());
                         }

@@ -19,7 +19,7 @@ impl ScriptTable {
         let scripts = Scripts::new();
         let temp = scripts.scripts.clone();
         let mut keys: Vec<_> = temp.keys().collect();
-        keys.sort_by(|k1, k2| k1.cmp(k2));
+        keys.sort();
 
         Self {
             state: TableState::default().with_selected(0),
@@ -83,7 +83,7 @@ impl ScriptTable {
         let index = self.state.selected().unwrap();
 
         let mut keys: Vec<String> = self.filtered.clone().into_keys().collect();
-        keys.sort_by(|k1, k2| k1.cmp(k2));
+        keys.sort();
 
         keys.get(index).unwrap().to_string()
     }
@@ -96,8 +96,8 @@ impl ScriptTable {
             .iter()
             .map(|(key, value)| {
                 let content = [
-                    Cell::from(Span::raw(format!("{key}"))),
-                    Cell::from(Span::raw(format!("{value}"))),
+                    Cell::from(Span::raw(key.to_string())),
+                    Cell::from(Span::raw(value.to_string())),
                 ];
 
                 Row::new(content)
