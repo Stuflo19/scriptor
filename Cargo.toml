@@ -10,7 +10,7 @@ crossterm = "0.28.1"
 ratatui = "0.29.0"
 color-eyre = "0.6.2"
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.132"
+serde_json = "1.0.133"
 
 [dev-dependencies]
 insta = "1.41.1"
