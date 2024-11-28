@@ -4,6 +4,9 @@
     <img src="https://github.com/Stuflo19/scriptor/actions/workflows/ci.yml/badge.svg" alt="Build status badge"/>
 </p>
 
+### Screenshots:
+<img width="660" alt="Screenshot 2024-11-28 at 23 38 44" src="https://github.com/user-attachments/assets/9af5361c-b49a-42ae-ae62-bab3f2e23606">
+
 ### Running the application:
 
 Ensure rust is installed following:
